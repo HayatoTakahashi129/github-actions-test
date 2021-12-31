@@ -1,14 +1,24 @@
 name: Actions Workflow
 
 on:
-  repository_dispatch:
-    types: [build]
+  push:
+    branches:
+      - main
+      - "feature/*"
+      - "feature/**" # this matches branch name includes / like feature/something/this
+      - "!feature/featC" # this ignore the spesific branch
+    tags:
+      - v1.*
+    paths:
+      - "**.js" # this execute workflow when specified file is changed.
+  # repository_dispatch:
+  #   types: [build]
   # schedule:
   #   - cron: "0/5 * * * *"
   #   - cron: "0/6 * * * *"
   # push:
-  pull_request:
-    types: [closed, assigned, opened, reopened]
+  # pull_request:
+  #   types: [closed, assigned, opened, reopened]
 jobs:
   run-github-actions:
     runs-on: ubuntu-latest
